@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div th:replace="views/layout/nav :: nav"></div>
+    <div th:replace="views/layout/header :: header"></div>
+
+    <h2>Thông tin cá nhân</h2>
+
+    <!-- Hiển thị thông báo -->
+    <p th:if="${success}" style="color: green;" th:text="${success}"></p>
+    <p th:if="${error}" style="color: red;" th:text="${error}"></p>
+
+    <h3>Cập nhật thông tin</h3>
+    <form action="/admin/profile" method="post">
+        <input type="hidden" name="id" th:value="${admin.id}" />
+
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user?.email ?: ''}" readonly><br>
+
+        <label>Tên:</label>
+        <input type="text" name="name" th:value="${admin?.name ?: ''}" required><br>
+
+        <label>Số điện thoại:</label>
+        <input type="text" name="phone" th:value="${admin?.phone ?: ''}"><br>
+
+        <label>Chức vụ:</label>
+        <input type="text" name="position" th:value="${admin?.position ?: ''}"><br>
+
+        <button type="submit">Cập nhật</button>
+    </form>
+
+    <div th:replace="views/layout/footer :: footer"></div>
+</body>
+
+</html>

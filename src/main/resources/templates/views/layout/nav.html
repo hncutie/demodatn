@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #007bff;">
+    <a class="navbar-brand text-white" href="#">Course Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <!-- Liên kết chung cho tất cả người dùng -->
+            <li class="nav-item">
+                <a th:href="@{/}" class="nav-link text-white">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/courses}" class="nav-link text-white">Khóa học</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/profile}" class="nav-link text-white">Thông tin cá nhân</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/logout}" class="nav-link text-white">Đăng xuất</a>
+            </li>
+
+            <!-- Liên kết dành cho user -->
+            <div th:if="${session.role == 'user'}">
+                <li class="nav-item">
+                    <a th:href="@{/favorites}" class="nav-link text-white">Yêu thích</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/share}" class="nav-link text-white">Chia sẻ</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/cart}" class="nav-link text-white">Giỏ hàng</a>
+                </li>
+            </div>
+
+            <!-- Liên kết dành cho admin -->
+            <div th:if="${session.role == 'admin'}">
+                <li class="nav-item">
+                    <a th:href="@{/admin/dashboard}" class="nav-link text-white">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/categories}" class="nav-link text-white">Quản lý danh mục</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/users}" class="nav-link text-white">Quản lý nhân viên</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/courses}" class="nav-link text-white">Quản lý khóa học</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/statistics}" class="nav-link text-white">Thống kê</a>
+                </li>
+            </div>
+
+            <!-- Liên kết dành cho nhân viên -->
+            <div th:if="${session.role == 'nhanvien'}">
+                <li class="nav-item">
+                    <a th:href="@{/staff/categories}" class="nav-link text-white">Quản lý danh mục</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/staff/teachers}" class="nav-link text-white">Quản lý giảng viên</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/staff/courses}" class="nav-link text-white">Quản lý khóa học</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/staff/students}" class="nav-link text-white">Quản lý học viên</a>
+                </li>
+            </div>
+
+            <!-- Liên kết dành cho kiểm duyệt -->
+            <div th:if="${session.role == 'kiemduyet'}">
+                <li class="nav-item">
+                    <a th:href="@{/review/teachers}" class="nav-link text-white">Duyệt giảng viên</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/review/courses}" class="nav-link text-white">Duyệt khóa học</a>
+                </li>
+            </div>
+
+            <!-- Liên kết dành cho giảng viên -->
+            <div th:if="${session.role == 'giangvien'}">
+                <li class="nav-item">
+                    <a th:href="@{/teacher/courses}" class="nav-link text-white">Quản lý khóa học</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/teacher/students}" class="nav-link text-white">Xem học viên</a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</nav>

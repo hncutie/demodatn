@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div th:replace="views/layout/nav :: nav"></div>
+    <div th:replace="views/layout/header :: header"></div>
+
+    <h2>Thông tin cá nhân</h2>
+
+    <!-- Hiển thị thông báo -->
+    <p th:if="${success}" style="color: green;" th:text="${success}"></p>
+    <p th:if="${error}" style="color: red;" th:text="${error}"></p>
+
+    <!-- <p>Email: <span th:text="${user?.email ?: 'Chưa có email'}"></span></p>
+    <p>Tên: <span th:text="${student?.name ?: 'Không có dữ liệu'}"></span></p>
+    <p>Số điện thoại: <span th:text="${student?.phone ?: 'Không có dữ liệu'}"></span></p> -->
+    <!-- <p>Ảnh đại diện: <span th:text="${student?.avatar ?: 'Không có dữ liệu'}"></span></p> -->
+
+
+
+    <h3>Cập nhật thông tin</h3>
+    <form action="/profile" method="post" enctype="multipart/form-data">
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user.email}" required><br>
+
+        <label>Tên mới:</label>
+        <input type="text" name="name" th:value="${student.name}" required><br>
+
+        <label>Số điện thoại mới:</label>
+        <input type="text" name="phone" th:value="${student.phone}" required><br>
+
+        <label>Ảnh đại diện:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewImage(event)"><br>
+        <img id="avatarPreview"
+            th:src="@{${student.avatar != null ? '/uploads/' + student.avatar : '/uploads/default-avatar.png'}}"
+            alt="Avatar" width="100">
+
+        <button type="submit">Cập nhật</button>
+    </form>
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('avatarPreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <div th:replace="views/layout/footer :: footer"></div>
+
+</body>
+
+</html>
