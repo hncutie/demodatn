@@ -1,92 +1,121 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #007bff;">
-    <a class="navbar-brand text-white" href="#">Course Management</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <!-- Liên kết chung cho tất cả người dùng -->
-            <li class="nav-item">
-                <a th:href="@{/}" class="nav-link text-white">Trang chủ</a>
-            </li>
-            <li class="nav-item">
-                <a th:href="@{/courses}" class="nav-link text-white">Khóa học</a>
-            </li>
-            <li class="nav-item">
-                <a th:href="@{/profile}" class="nav-link text-white">Thông tin cá nhân</a>
-            </li>
-            <li class="nav-item">
-                <a th:href="@{/logout}" class="nav-link text-white">Đăng xuất</a>
-            </li>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
-            <!-- Liên kết dành cho user -->
-            <div th:if="${session.role == 'user'}">
-                <li class="nav-item">
-                    <a th:href="@{/favorites}" class="nav-link text-white">Yêu thích</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/share}" class="nav-link text-white">Chia sẻ</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/cart}" class="nav-link text-white">Giỏ hàng</a>
-                </li>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+    <!-- Bootstrap CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 
-            <!-- Liên kết dành cho admin -->
-            <div th:if="${session.role == 'admin'}">
-                <li class="nav-item">
-                    <a th:href="@{/admin/dashboard}" class="nav-link text-white">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/admin/categories}" class="nav-link text-white">Quản lý danh mục</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/admin/users}" class="nav-link text-white">Quản lý nhân viên</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/admin/courses}" class="nav-link text-white">Quản lý khóa học</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/admin/statistics}" class="nav-link text-white">Thống kê</a>
-                </li>
-            </div>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Course Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <!-- Liên kết dành cho nhân viên -->
-            <div th:if="${session.role == 'nhanvien'}">
-                <li class="nav-item">
-                    <a th:href="@{/staff/categories}" class="nav-link text-white">Quản lý danh mục</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/staff/teachers}" class="nav-link text-white">Quản lý giảng viên</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/staff/courses}" class="nav-link text-white">Quản lý khóa học</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/staff/students}" class="nav-link text-white">Quản lý học viên</a>
-                </li>
-            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
 
-            <!-- Liên kết dành cho kiểm duyệt -->
-            <div th:if="${session.role == 'kiemduyet'}">
-                <li class="nav-item">
-                    <a th:href="@{/review/teachers}" class="nav-link text-white">Duyệt giảng viên</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/review/courses}" class="nav-link text-white">Duyệt khóa học</a>
-                </li>
-            </div>
+                    <!-- Chưa đăng nhập -->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/}">Trang chủ</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/login}">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/register}">Đăng ký</a>
+                    </li>
 
-            <!-- Liên kết dành cho giảng viên -->
-            <div th:if="${session.role == 'giangvien'}">
-                <li class="nav-item">
-                    <a th:href="@{/teacher/courses}" class="nav-link text-white">Quản lý khóa học</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/teacher/students}" class="nav-link text-white">Xem học viên</a>
-                </li>
+                    <!-- Đã đăng nhập -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/}">Trang chủ</a>
+                    </li>
+                    <li class="nav-item"
+                        sec:authorize="isAuthenticated() and !hasRole('ROLE_INSTRUCTOR') and !hasRole('ROLE_ADMIN') and !hasRole('ROLE_MODERATOR') and !hasRole('ROLE_EMPLOYEE')">
+                        <a class="nav-link" th:href="@{/register-instructor}">Đăng ký làm Giảng viên</a>
+                    </li>
+
+
+                    <!-- Chọn role có quyền lớn nhất từ session.roleName -->
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_STUDENT')">
+                        <a class="nav-link" th:href="@{/favorites}">Yêu thích</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_STUDENT')">
+                        <a class="nav-link" th:href="@{/share}">Chia sẻ</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_STUDENT')">
+                        <a class="nav-link" th:href="@{/cart}">Giỏ hàng</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                        <a class="nav-link" th:href="@{/staff/categories}">Danh mục</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                        <a class="nav-link" th:href="@{/staff/teachers}">Giảng viên</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                        <a class="nav-link" th:href="@{/staff/courses}">Khóa học</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                        <a class="nav-link" th:href="@{/staff/students}">Học viên</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_MODERATOR')">
+                        <a class="nav-link" th:href="@{/review/teachers}">Duyệt giảng viên</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_MODERATOR')">
+                        <a class="nav-link" th:href="@{/review/courses}">Duyệt khóa học</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+                        <a class="nav-link" th:href="@{/teacher/courses}">Khóa học của tôi</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+                        <a class="nav-link" th:href="@{/teacher/students}">Học viên</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/dashboard}">Dashboard</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/categories}">Danh mục</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/users}">Nhân viên</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/courses}">Khóa học</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/statistics}">Thống kê</a>
+                    </li>
+
+                    <!-- Dropdown tài khoản -->
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Tài khoản
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" th:href="@{/profile}">Thông tin cá nhân</a></li>
+                            <li><a class="dropdown-item" th:href="@{/change-password}">Đổi mật khẩu</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" th:href="@{/logout}">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
             </div>
-        </ul>
-    </div>
-</nav>
+        </div>
+    </nav>
+</body>
+
+</html>

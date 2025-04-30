@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.datn.dto.UserProfileDTO;
-import com.datn.entitys.User;
+import com.datn.dtos.UserProfileDTO;
+import com.datn.entities.User;
 import com.datn.repositories.UserRepository;
 
 import jakarta.persistence.EntityManager;

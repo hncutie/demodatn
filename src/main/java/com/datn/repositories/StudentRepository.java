@@ -1,7 +1,8 @@
 package com.datn.repositories;
 
-import com.datn.entitys.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.datn.entities.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 }
